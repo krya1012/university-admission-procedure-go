@@ -11,11 +11,19 @@ import (
 
 type Applicant struct {
 	name       string
-	gpa        float64
+	exams      [4]float64
 	priorities [3]string
 }
 
 var departments = []string{"Biotech", "Chemistry", "Engineering", "Mathematics", "Physics"}
+
+var deptExam = map[string]int{
+	"Physics":     0,
+	"Biotech":     1,
+	"Chemistry":   1,
+	"Mathematics": 2,
+	"Engineering": 3,
+}
 
 func formatScore(f float64) string {
 	s := strconv.FormatFloat(f, 'f', -1, 64)
@@ -36,11 +44,14 @@ func main() {
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		parts := strings.Fields(scanner.Text())
-		gpa, _ := strconv.ParseFloat(parts[2], 64)
+		var exams [4]float64
+		for i := 0; i < 4; i++ {
+			exams[i], _ = strconv.ParseFloat(parts[2+i], 64)
+		}
 		pool = append(pool, Applicant{
 			name:       parts[0] + " " + parts[1],
-			gpa:        gpa,
-			priorities: [3]string{parts[3], parts[4], parts[5]},
+			exams:      exams,
+			priorities: [3]string{parts[6], parts[7], parts[8]},
 		})
 	}
 
@@ -53,6 +64,7 @@ func main() {
 			if slots <= 0 {
 				continue
 			}
+			ei := deptExam[dept]
 			var candidates []Applicant
 			for _, a := range pool {
 				if a.priorities[wave] == dept {
@@ -60,8 +72,9 @@ func main() {
 				}
 			}
 			sort.Slice(candidates, func(i, j int) bool {
-				if candidates[i].gpa != candidates[j].gpa {
-					return candidates[i].gpa > candidates[j].gpa
+				si, sj := candidates[i].exams[ei], candidates[j].exams[ei]
+				if si != sj {
+					return si > sj
 				}
 				return candidates[i].name < candidates[j].name
 			})
@@ -87,15 +100,17 @@ func main() {
 			fmt.Println()
 		}
 		fmt.Println(dept)
+		ei := deptExam[dept]
 		list := admitted[dept]
 		sort.Slice(list, func(i, j int) bool {
-			if list[i].gpa != list[j].gpa {
-				return list[i].gpa > list[j].gpa
+			si, sj := list[i].exams[ei], list[j].exams[ei]
+			if si != sj {
+				return si > sj
 			}
 			return list[i].name < list[j].name
 		})
 		for _, a := range list {
-			fmt.Printf("%s %s\n", a.name, formatScore(a.gpa))
+			fmt.Printf("%s %s\n", a.name, formatScore(a.exams[ei]))
 		}
 	}
 }

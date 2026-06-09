@@ -1,5 +1,12 @@
 # Changelog
 
+## [Stage 5] — 2026-06-09
+
+### Changed
+- Replaced GPA with 4 exam scores per applicant (physics, chemistry, math, cs)
+- Each department now ranks candidates by a single department-specific exam
+- Updated `application_list.py` to Stage 5 format (98 students with exam scores)
+
 ## [Stage 4] — 2026-06-09
 
 ### Changed
