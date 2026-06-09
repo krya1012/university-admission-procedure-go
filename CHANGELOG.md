@@ -1,5 +1,11 @@
 # Changelog
 
+## [Stage 3] — 2026-06-09
+
+### Changed
+- Full rewrite: reads N applicants with GPAs, ranks top M by GPA (desc), ties broken alphabetically by full name
+- Output: `Successful applicants:` header followed by M names (no GPA)
+
 ## [Stage 2] — 2026-06-09
 
 ### Changed
