@@ -1,0 +1,10 @@
+# Changelog
+
+## [Stage 1] — 2026-06-09
+
+### Added
+- Initial solution: reads 3 integer exam scores, computes mean, prints result and acceptance message
+- `CLAUDE.md` with project guidance and stage reference
+- `README.md` with project overview, setup, and input/output documentation
+- `.gitignore` covering Go binaries, IDE files, Python cache, and generated department output files
+- Git repository initialized
