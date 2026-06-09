@@ -1,5 +1,13 @@
 # Changelog
 
+## [Stage 4] — 2026-06-09
+
+### Changed
+- Full rewrite: reads `applicants.txt` instead of stdin for applicant data
+- Implements 3-wave priority-based admission across 5 departments (Biotech, Chemistry, Engineering, Mathematics, Physics)
+- Outputs each department (alphabetical order) with accepted applicants and GPA, sorted by GPA desc / name asc
+- Updated `.gitignore` to exclude yaml, yml, gradle, and XML config files
+
 ## [Stage 3] — 2026-06-09
 
 ### Changed
