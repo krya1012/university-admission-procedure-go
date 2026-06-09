@@ -12,6 +12,7 @@ import (
 type Applicant struct {
 	name       string
 	exams      [4]float64
+	special    float64
 	priorities [3]string
 }
 
@@ -31,7 +32,11 @@ func score(a Applicant, dept string) float64 {
 	for _, i := range idx {
 		sum += a.exams[i]
 	}
-	return sum / float64(len(idx))
+	mean := sum / float64(len(idx))
+	if a.special > mean {
+		return a.special
+	}
+	return mean
 }
 
 func formatScore(f float64) string {
@@ -57,10 +62,12 @@ func main() {
 		for i := 0; i < 4; i++ {
 			exams[i], _ = strconv.ParseFloat(parts[2+i], 64)
 		}
+		special, _ := strconv.ParseFloat(parts[6], 64)
 		pool = append(pool, Applicant{
 			name:       parts[0] + " " + parts[1],
 			exams:      exams,
-			priorities: [3]string{parts[6], parts[7], parts[8]},
+			special:    special,
+			priorities: [3]string{parts[7], parts[8], parts[9]},
 		})
 	}
 

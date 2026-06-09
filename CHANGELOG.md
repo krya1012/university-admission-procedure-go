@@ -1,5 +1,12 @@
 # Changelog
 
+## [Stage 7] — 2026-06-09
+
+### Changed
+- Added special exam score column (5th score, before dept priorities) to input format
+- Effective score per dept is now `max(dept_mean_exam_score, special_exam_score)`
+- Priority indices shifted by 1 in the input file (parts[7-9] instead of parts[6-8])
+
 ## [Stage 6] — 2026-06-09
 
 ### Changed
