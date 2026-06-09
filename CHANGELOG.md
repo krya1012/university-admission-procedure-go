@@ -1,5 +1,11 @@
 # Changelog
 
+## [Stage 2] — 2026-06-09
+
+### Changed
+- Added threshold check: mean ≥ 60 accepts, mean < 60 rejects with a different message
+- Updated `tests.py` to Stage 2 test suite (6 cases covering both outcomes and boundary)
+
 ## [Stage 1] — 2026-06-09
 
 ### Added

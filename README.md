@@ -59,6 +59,16 @@ python3 tests.py
 Congratulations, you are accepted!
 ```
 
+```
+100
+43
+27
+```
+```
+56.666666666666664
+We regret to inform you that we will not be able to offer you admission.
+```
+
 ### Stages 4–7 (reads `applicants.txt`)
 
 Applicant file format evolves per stage:
