@@ -17,6 +17,14 @@ type Applicant struct {
 
 var departments = []string{"Biotech", "Chemistry", "Engineering", "Mathematics", "Physics"}
 
+func formatScore(f float64) string {
+	s := strconv.FormatFloat(f, 'f', -1, 64)
+	if !strings.Contains(s, ".") {
+		s += ".0"
+	}
+	return s
+}
+
 func main() {
 	var n int
 	fmt.Scan(&n)
@@ -87,7 +95,7 @@ func main() {
 			return list[i].name < list[j].name
 		})
 		for _, a := range list {
-			fmt.Printf("%s %v\n", a.name, a.gpa)
+			fmt.Printf("%s %s\n", a.name, formatScore(a.gpa))
 		}
 	}
 }
