@@ -17,12 +17,21 @@ type Applicant struct {
 
 var departments = []string{"Biotech", "Chemistry", "Engineering", "Mathematics", "Physics"}
 
-var deptExam = map[string]int{
-	"Physics":     0,
-	"Biotech":     1,
-	"Chemistry":   1,
-	"Mathematics": 2,
-	"Engineering": 3,
+var deptExams = map[string][]int{
+	"Physics":     {0, 2},
+	"Biotech":     {1, 0},
+	"Chemistry":   {1},
+	"Mathematics": {2},
+	"Engineering": {3, 2},
+}
+
+func score(a Applicant, dept string) float64 {
+	idx := deptExams[dept]
+	sum := 0.0
+	for _, i := range idx {
+		sum += a.exams[i]
+	}
+	return sum / float64(len(idx))
 }
 
 func formatScore(f float64) string {
@@ -64,7 +73,6 @@ func main() {
 			if slots <= 0 {
 				continue
 			}
-			ei := deptExam[dept]
 			var candidates []Applicant
 			for _, a := range pool {
 				if a.priorities[wave] == dept {
@@ -72,7 +80,7 @@ func main() {
 				}
 			}
 			sort.Slice(candidates, func(i, j int) bool {
-				si, sj := candidates[i].exams[ei], candidates[j].exams[ei]
+				si, sj := score(candidates[i], dept), score(candidates[j], dept)
 				if si != sj {
 					return si > sj
 				}
@@ -95,22 +103,19 @@ func main() {
 		pool = next
 	}
 
-	for i, dept := range departments {
-		if i > 0 {
-			fmt.Println()
-		}
-		fmt.Println(dept)
-		ei := deptExam[dept]
+	for _, dept := range departments {
 		list := admitted[dept]
 		sort.Slice(list, func(i, j int) bool {
-			si, sj := list[i].exams[ei], list[j].exams[ei]
+			si, sj := score(list[i], dept), score(list[j], dept)
 			if si != sj {
 				return si > sj
 			}
 			return list[i].name < list[j].name
 		})
+		f, _ := os.Create(strings.ToLower(dept) + ".txt")
 		for _, a := range list {
-			fmt.Printf("%s %s\n", a.name, formatScore(a.exams[ei]))
+			fmt.Fprintf(f, "%s %s\n", a.name, formatScore(score(a, dept)))
 		}
+		f.Close()
 	}
 }

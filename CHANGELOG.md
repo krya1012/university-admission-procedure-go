@@ -1,5 +1,11 @@
 # Changelog
 
+## [Stage 6] — 2026-06-09
+
+### Changed
+- Some departments now rank by the mean of multiple exams: Physics=(physics+math)/2, Biotech=(chemistry+physics)/2, Engineering=(cs+math)/2
+- Results written to per-department files (`biotech.txt`, `chemistry.txt`, etc.) instead of stdout
+
 ## [Stage 5] — 2026-06-09
 
 ### Changed
